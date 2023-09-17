@@ -86,14 +86,14 @@ local function CreateButton()
 	InputButton.TextSize = 14.000
 	InputButton.TextTransparency = 1.000
 	InputButton.ZIndex = 100
-	
+
 	return InputButton
 end
 function Lino:NewWindow(WindowName)
 	local WindowFunctions = {
 		Keybind = Enum.KeyCode.X
 	}
-	
+
 	local Tabs = {}
 	local UIToggle = true
 	local ScreenGui = Instance.new("ScreenGui")
@@ -110,11 +110,11 @@ function Lino:NewWindow(WindowName)
 	local UserImage = Instance.new("ImageLabel")
 	local UserName = Instance.new("TextLabel")
 	local center = Instance.new("Frame")
-	
+
 	UIListLayout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
 		TabButtons.CanvasSize = UDim2.new(0,0,0,UIListLayout.AbsoluteContentSize.Y + 10)
 	end)
-	
+
 	local function SaveTran()
 		for i,v : Frame? |ImageLabel? |TextLabel? |TextButton? |TextBox? |UIStroke? in ipairs(Frame:GetDescendants()) do
 			if v:isA('Frame') then
@@ -142,13 +142,13 @@ function Lino:NewWindow(WindowName)
 			end
 		end
 	end
-	
-	
+
+
 	ScreenGui.Parent = UIPB
 	ScreenGui.ResetOnSpawn = false
 	ScreenGui.IgnoreGuiInset = true
 	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
-	
+
 	Frame.Parent = ScreenGui
 	Frame.AnchorPoint = Vector2.new(0.5, 0.5)
 	Frame.BackgroundColor3 = Lino.BlackgroundColor
@@ -237,7 +237,7 @@ function Lino:NewWindow(WindowName)
 	TabButtons.ZIndex = 5
 	TabButtons.ScrollBarThickness = 1
 	TabButtons.ScrollBarImageColor3 = Lino.ScrollingColor
-	
+
 	UIListLayout.Parent = TabButtons
 	UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -287,10 +287,10 @@ function Lino:NewWindow(WindowName)
 	center.BorderSizePixel = 0
 	center.Position = UDim2.new(0.261824071, 0, 0.121130548, 0)
 	center.Size = UDim2.new(0.725103319, 0, 0.856258333, 0)
-	
+
 	function WindowFunctions:NewTab(TabName)
 		local TabFunctions = {}
-		
+
 		local TabButton = Instance.new("Frame")
 		local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 		local ImageLabel = Instance.new("ImageLabel")
@@ -305,7 +305,7 @@ function Lino:NewWindow(WindowName)
 		TabButton.Size = UDim2.new(0.949999988, 0, 0.5, 0)
 
 		UIAspectRatioConstraint.Parent = TabButton
-		UIAspectRatioConstraint.AspectRatio = 3.500
+		UIAspectRatioConstraint.AspectRatio = 5
 		UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
 
 		ImageLabel.Parent = TabButton
@@ -337,14 +337,14 @@ function Lino:NewWindow(WindowName)
 
 		UICorner.CornerRadius = UDim.new(0, 3)
 		UICorner.Parent = TabButton
-		
+
 		local Tab = Instance.new("ScrollingFrame")
 		local UIListLayout = Instance.new("UIListLayout")
-		
+
 		UIListLayout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
 			Tab.CanvasSize = UDim2.new(0,0,0,UIListLayout.AbsoluteContentSize.Y + 10)
 		end)
-		
+
 		Tab.Name = "Tab"
 		Tab.Parent = center
 		Tab.Active = true
@@ -358,12 +358,12 @@ function Lino:NewWindow(WindowName)
 		Tab.ZIndex = 5
 		Tab.ScrollBarThickness = 1
 		Tab.ScrollBarImageColor3 = Lino.ScrollingColor
-		
+
 		UIListLayout.Parent = Tab
 		UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 		UIListLayout.Padding = UDim.new(0, 4)
-		
+
 		local function call(val)
 			if val then
 				Tab.Visible = true
@@ -373,18 +373,18 @@ function Lino:NewWindow(WindowName)
 				TweenService:Create(TabButton,TweenInfo.new(0.2),{BackgroundColor3 = Lino.DefaultColor}):Play()
 			end
 		end
-		
+
 		if #Tabs == 0 then
 			call(true)
 		else
 			call(false)
 		end
-		
+
 		table.insert(Tabs,{Tab,call})
 		local button = CreateButton()
-		
+
 		button.Parent = TabButton
-		
+
 		button.MouseButton1Click:Connect(function()
 			Create_Ripple(button)
 			for i,v in ipairs(Tabs) do
@@ -395,7 +395,7 @@ function Lino:NewWindow(WindowName)
 				end
 			end
 		end)
-		
+
 		function TabFunctions:NewLabel(LabelName)
 			local Label = Instance.new("Frame")
 			local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
@@ -435,7 +435,7 @@ function Lino:NewWindow(WindowName)
 			Title.TextWrapped = true
 			Title.Text = LabelName
 			Title:SetAttribute("d3",0)
-			
+
 			Bar.Name = "Bar"
 			Bar.Parent = Label
 			Bar.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -450,25 +450,25 @@ function Lino:NewWindow(WindowName)
 			UIGradient.Parent = Bar
 			local function Update()
 				local size = TextService:GetTextSize(Title.Text,Title.TextSize,Title.Font,Vector2.new(math.huge,math.huge))
-				
+
 				TweenService:Create(Title,TweenInfo.new(0.2),{Size = UDim2.new(0, size.X + 10, 0.550000012, 0)}):Play()
 			end
-			
+
 			Update()
-			
+
 			local LabelFunctions = {}
-			
+
 			function LabelFunctions:Text(new)
 				Title.Text = tostring(new)
 				Update()
 			end
-			
+
 			return LabelFunctions
 		end
-		
+
 		function TabFunctions:NewButton(ButtonName,callback)
 			callback=callback or function() end
-			
+
 			local Button = Instance.new("Frame")
 			local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 			local UICorner = Instance.new("UICorner")
@@ -485,7 +485,7 @@ function Lino:NewWindow(WindowName)
 			Button.BorderSizePixel = 0
 			Button.Size = UDim2.new(0.949999988, 0, 0.5, 0)
 			Button.ZIndex = 8
-			
+
 			UIAspectRatioConstraint.Parent = Button
 			UIAspectRatioConstraint.AspectRatio = 10.000
 			UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
@@ -511,7 +511,7 @@ function Lino:NewWindow(WindowName)
 			Title.TextWrapped = true
 			Title.TextXAlignment = Enum.TextXAlignment.Left
 			Title.ZIndex = 9
-			
+
 			Icon.Name = "Icon"
 			Icon.Parent = Button
 			Icon.AnchorPoint = Vector2.new(1, 0.5)
@@ -524,7 +524,7 @@ function Lino:NewWindow(WindowName)
 			Icon.SizeConstraint = Enum.SizeConstraint.RelativeYY
 			Icon.Image = "rbxassetid://14790054905"
 			Icon.ZIndex = 9
-			
+
 			UIGradient.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 1.00), NumberSequenceKeypoint.new(0.739, 0.97), NumberSequenceKeypoint.new(0.740001, 0.00), NumberSequenceKeypoint.new(1.00, 0.00)}
 			UIGradient.Parent = Icon
 
@@ -541,34 +541,34 @@ function Lino:NewWindow(WindowName)
 			InputButton.TextSize = 14.000
 			InputButton.TextTransparency = 1.000
 			InputButton.ZIndex = 1000
-			
+
 			UIStroke.Transparency = 1.000
 			UIStroke.Color = Color3.fromRGB(85, 85, 85)
 			UIStroke.Parent = Button
-			
+
 			InputButton.MouseButton1Click:Connect(function()
 				Create_Ripple(InputButton)
 				callback()
 			end)
-			
+
 			local ButtonFunctions = {}
-			
+
 			function ButtonFunctions:Text(a)
 				Title.Text = tostring(a)
 			end
-			
+
 			function ButtonFunctions:Fire(...)
 				callback(...)
 			end
-			
+
 			return ButtonFunctions
 		end
-		
+
 		function TabFunctions:NewToggle(ToggleName,Default,callback)
 			Default = Default or false callback = callback or function ()
-				
+
 			end
-			
+
 			local Toggle = Instance.new("Frame")
 			local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 			local UICorner = Instance.new("UICorner")
@@ -588,7 +588,7 @@ function Lino:NewWindow(WindowName)
 			Toggle.BorderSizePixel = 0
 			Toggle.Size = UDim2.new(0.949999988, 0, 0.5, 0)
 			Toggle.ZIndex = 6
-			
+
 			UIAspectRatioConstraint.Parent = Toggle
 			UIAspectRatioConstraint.AspectRatio = 10.000
 			UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
@@ -641,7 +641,7 @@ function Lino:NewWindow(WindowName)
 			Icon.Position = UDim2.new(0.980000019, 0, 0.5, 0)
 			Icon.Size = UDim2.new(0.125, 0, 0.550000012, 0)
 			Icon.ZIndex = 9
-			
+
 			UICorner_2.CornerRadius = UDim.new(0.5, 0)
 			UICorner_2.Parent = Icon
 
@@ -658,10 +658,10 @@ function Lino:NewWindow(WindowName)
 			ToggleIcon.Size = UDim2.new(0.899999976, 0, 0.899999976, 0)
 			ToggleIcon.SizeConstraint = Enum.SizeConstraint.RelativeYY
 			ToggleIcon.ZIndex = 9
-			
+
 			UICorner_3.CornerRadius = UDim.new(0.5, 0)
 			UICorner_3.Parent = ToggleIcon
-			
+
 			local function valuechanger(val)
 				if val then
 					TweenService:Create(ToggleIcon,TweenInfo.new(0.25,Enum.EasingStyle.Quint),{Position = UDim2.new(0.75,0,0.5,0),BackgroundColor3=Lino.ToggleOn}):Play()
@@ -669,37 +669,37 @@ function Lino:NewWindow(WindowName)
 					TweenService:Create(ToggleIcon,TweenInfo.new(0.25,Enum.EasingStyle.Quint),{Position = UDim2.new(0.25,0,0.5,0),BackgroundColor3=Lino.ToggleOff}):Play()
 				end
 			end
-			
+
 			valuechanger(Default)
-			
-			
+
+
 			InputButton.MouseButton1Click:Connect(function()
 				Create_Ripple(InputButton)
 				Default = not Default
 				valuechanger(Default)
 				callback(Default)
 			end)
-			
+
 			local ToggleFunctions = {}
-			
+
 			function ToggleFunctions:Value(val)
 				Default = val
 				valuechanger(Default)
 				callback(Default)
 			end
-			
+
 			function ToggleFunctions:Text(a)
 				Title.Text = tostring(a)
 			end
-			
+
 			return ToggleFunctions
 		end
-		
+
 		function TabFunctions:NewTextbox(TextboxName,InputText,callback)
 			InputText = InputText or ""
 			callback = callback or function() end
 			local MaxLine = 5
-			
+
 			local Textbox = Instance.new("Frame")
 			local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 			local UICorner = Instance.new("UICorner")
@@ -710,7 +710,7 @@ function Lino:NewWindow(WindowName)
 			local UICorner_2 = Instance.new("UICorner")
 			local UIStroke_2 = Instance.new("UIStroke")
 			local TextBox = Instance.new("TextBox")
-			
+
 			Textbox.Name = "Textbox"
 			Textbox.Parent = Tab
 			Textbox.BackgroundColor3 = Lino.DefaultColor
@@ -785,58 +785,58 @@ function Lino:NewWindow(WindowName)
 			TextBox.TextXAlignment = Enum.TextXAlignment.Left
 			TextBox.PlaceholderText = InputText
 			TextBox.TextYAlignment = Enum.TextYAlignment.Center
-		
-			
+
+
 			local function update()
 				local tez = (#TextBox.Text >= 1 and TextBox.Text) or TextBox.PlaceholderText
 				local textsize = TextService:GetTextSize(tez,TextBox.TextSize,Enum.Font.RobotoMono,Vector2.new(math.huge,math.huge))
-				
+
 				TweenService:Create(Frame,TweenInfo.new(0.1),{Size = UDim2.new(0, math.clamp(textsize.X + 10,0,293), 0.241, 0)}):Play()
 
 			end
-			
+
 			TextBox:GetPropertyChangedSignal('Text'):Connect(function()
 				update()
 			end)
-			
+
 			update()
-			
+
 			TextBox.FocusLost:Connect(function()
 				callback(TextBox.Text)
 			end)
-			
+
 			local TextboxFunctions = {}
-			
+
 			function TextboxFunctions:Text(a)
 				Title.Text = tostring(a)
 			end
-			
+
 			function TextboxFunctions:InputText(a)
 				TextBox.PlaceholderText = tostring(a)
 				update()
 			end
-			
+
 			function TextboxFunctions:Value(a)
 				TextBox.Text = tostring(a)
 				update()
 				callback(a)
 			end
-			
+
 			return TextboxFunctions
 		end
-		
+
 		function TabFunctions:NewKeybind(KeybindName,Default,callback)
 			Default = Default or nil
 			callback = callback or function() end
-			
+
 			local function getname(a)
 				if not a then
 					return "None"
 				end
-				
+
 				return a.Name
 			end
-			
+
 			local Keybind = Instance.new("Frame")
 			local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 			local UICorner = Instance.new("UICorner")
@@ -855,7 +855,7 @@ function Lino:NewWindow(WindowName)
 			Keybind.BorderSizePixel = 0
 			Keybind.Size = UDim2.new(0.949999988, 0, 0.5, 0)
 			Keybind.ZIndex = 6
-			
+
 			UIAspectRatioConstraint.Parent = Keybind
 			UIAspectRatioConstraint.AspectRatio = 10.000
 			UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
@@ -932,13 +932,13 @@ function Lino:NewWindow(WindowName)
 			Key.TextTransparency = 0.500
 			Key.TextWrapped = true
 			Key.ZIndex = 10
-			
+
 			local function UpdateText()
 				local size = TextService:GetTextSize(Key.Text,Key.TextSize,Key.Font,Vector2.new(math.huge,math.huge))
-				
+
 				TweenService:Create(Icon,TweenInfo.new(0.2),{Size = UDim2.new(0, size.X + 9, 0.550000012, 0)}):Play()
 			end
-			
+
 			local Binding = false
 			InputButton.MouseButton1Click:Connect(function()
 				if Binding then
@@ -968,31 +968,31 @@ function Lino:NewWindow(WindowName)
 				end
 				return
 			end)
-			
+
 			UpdateText()
-			
+
 			local KeybindFunctions = {}
-			
+
 			function KeybindFunctions:Text(a)
 				Title.Text = tostring(a)
 			end
-			
+
 			function KeybindFunctions:Value(l)
 				Key.Text = getname(l)
 				Default = l
 				UpdateText() 
 				callback(l)
 			end
-			
+
 			return KeybindFunctions
 		end
-		
+
 		function TabFunctions:NewSlider(SliderName,Min,Max,Default,callback)
 			Min = Min or 1
 			Max = Max or 100
 			Default = Default or Min
 			callback = callback or function() end
-			
+
 			local Slider = Instance.new("Frame")
 			local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 			local UICorner = Instance.new("UICorner")
@@ -1061,14 +1061,14 @@ function Lino:NewWindow(WindowName)
 			Movement.BorderSizePixel = 0
 			Movement.Size = UDim2.new(0.025, 0, 1, 0)
 			Movement.ZIndex = 6
-			
-			
+
+
 			local dasd = Instance.new('UIListLayout')
 			dasd.FillDirection = Enum.FillDirection.Horizontal
 			dasd.HorizontalAlignment = Enum.HorizontalAlignment.Right
 			dasd.VerticalAlignment = Enum.VerticalAlignment.Center
 			dasd.Parent = Movement
-			
+
 			Circle.Name = "Circle"
 			Circle.Parent = Movement
 			Circle.AnchorPoint = Vector2.new(1, 0)
@@ -1104,13 +1104,13 @@ function Lino:NewWindow(WindowName)
 			ValueText.TextSize = 15.000
 			ValueText.TextWrapped = true
 			ValueText.TextXAlignment = Enum.TextXAlignment.Right
-			
+
 			local function UpdateText()
 				local a = TextService:GetTextSize(ValueText.Text,ValueText.TextSize,ValueText.Font,Vector2.new(math.huge,math.huge))
-				
+
 				TweenService:Create(ValueText,TweenInfo.new(0.3),{Size = UDim2.new(0,a.X + 9,0.349999994, 0)}):Play()
 			end
-			
+
 			local danger = false
 
 			Frame.InputBegan:Connect(function(Input)
@@ -1156,31 +1156,31 @@ function Lino:NewWindow(WindowName)
 
 				UpdateText()
 			end
-			
+
 			UserInputServie.InputChanged:Connect(function(a)
 				Set("Input",a)
 			end)
 
 			Set()
-			
+
 			local SliderFunctions = {}
-			
+
 			function SliderFunctions:Value(a)
 				Set(nil,nil,a)
 			end
-			
+
 			function SliderFunctions:Text(a)
 				Title.Text = tostring(a)
 			end
-			
+
 			return SliderFunctions
 		end
-		
+
 		function TabFunctions:NewDropdown(DropdownName,info,Default,callback)
 			info = info or {}
 			callback = callback or function() end
 			Default = Default or info[1]
-			
+
 			local Dropdown = Instance.new("Frame")
 			local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 			local UICorner = Instance.new("UICorner")
@@ -1207,22 +1207,22 @@ function Lino:NewWindow(WindowName)
 			Dropdown.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			Dropdown.BorderSizePixel = 0
 			Dropdown.Size = UDim2.new(0.949999988, 0, 0.5, 0)
-			
+
 
 			UIListLayout_2.Parent = ScrollingFrame
 			UIListLayout_2.HorizontalAlignment = Enum.HorizontalAlignment.Center
 			UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
 			UIListLayout_2.Padding = UDim.new(0, 3)
-			
+
 			UIListLayout_2:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
 				ScrollingFrame.CanvasSize = UDim2.new(0,0,0,UIListLayout_2.AbsoluteContentSize.Y + 5)
 			end)
-			
+
 			UIListLayout_3.Parent = Dropdown
 			UIListLayout_3.HorizontalAlignment = Enum.HorizontalAlignment.Center
 			UIListLayout_3.SortOrder = Enum.SortOrder.LayoutOrder
 			UIListLayout_3.Padding = UDim.new(0, 3)
-			
+
 			UIAspectRatioConstraint.Parent = Dropdown
 			UIAspectRatioConstraint.AspectRatio = 10.000
 			UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
@@ -1358,34 +1358,34 @@ function Lino:NewWindow(WindowName)
 			ScrollingFrame.ZIndex = 5
 			ScrollingFrame.ScrollBarThickness = 1
 			ScrollingFrame.ScrollBarImageColor3 = Lino.ScrollingColor
-			
+
 			UIAspectRatioConstraint_3.Parent = ScrollingFrame
 			UIAspectRatioConstraint_3.AspectRatio = 3.500
 			UIAspectRatioConstraint_3.AspectType = Enum.AspectType.ScaleWithParentSize
-			
+
 			local function UpdateText()
 				local size1 = TextService:GetTextSize(Title.Text,Title.TextSize,Title.Font,Vector2.new(math.huge,math.huge))
 				local size2 = TextService:GetTextSize(ValueText.Text,ValueText.TextSize,ValueText.Font,Vector2.new(math.huge,math.huge))
-				
+
 				TweenService:Create(ValueText,TweenInfo.new(0.4),{Size = UDim2.new(0, size2.X + 9, 0.550000012, 0)}):Play()
 				TweenService:Create(Title,TweenInfo.new(0.4),{Size = UDim2.new(0, size1.X + 9, 0.550000012, 0)}):Play()
 			end
-			
+
 			local function atran(number)
 				for i,v : TextButton in ipairs(ScrollingFrame:GetChildren()) do
 					if v:isA('TextButton') then
 						TweenService:Create(v,TweenInfo.new(0.4,Enum.EasingStyle.Quint),{TextTransparency = number,BackgroundTransparency=number}):Play()
 					end
 				end
-				
+
 				TweenService:Create(ScrollingFrame,TweenInfo.new(0.1,Enum.EasingStyle.Quint),{ScrollBarImageTransparency = number}):Play()
 			end
-			
+
 			UpdateText()
-			
+
 			local togglle_val = false
 			local choose = nil
-			
+
 			local function toggle(ca)
 				coroutine.wrap(function()
 					if ca then
@@ -1408,16 +1408,16 @@ function Lino:NewWindow(WindowName)
 					end
 				end)()
 			end
-			
+
 			toggle(false)
-			
+
 			InputButton.MouseButton1Click:Connect(function()
 				Create_Ripple(InputButton)
 				togglle_val = not togglle_val
 				toggle(togglle_val)
 				UpdateText()
 			end)
-			
+
 			local function get_button()
 				local Button = Instance.new("TextButton")
 				local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
@@ -1436,30 +1436,30 @@ function Lino:NewWindow(WindowName)
 				Button.TextSize = 14.000
 				Button.TextWrapped = true
 				Button.ZIndex = 6
-				
+
 				UIAspectRatioConstraint.Parent = Button
 				UIAspectRatioConstraint.AspectRatio = 10.000
 				UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
 
 				UICorner.CornerRadius = UDim.new(0, 3)
 				UICorner.Parent = Button
-				
+
 				return Button
 			end
-			
+
 			local function rander()
 				for i,v : TextButton in ipairs(ScrollingFrame:GetChildren()) do
 					if v:isA('TextButton') then
 						v:Destroy()
 					end
 				end
-				
+
 				for i,v in ipairs(info) do
 					local utton = get_button()
-					
+
 					utton.Text = tostring(v)
 					utton.Parent = ScrollingFrame
-					
+
 					local function set()
 						choose = v
 						ValueText.Text = tostring(v)
@@ -1470,47 +1470,47 @@ function Lino:NewWindow(WindowName)
 							end)
 						end)()
 					end
-					
+
 					utton.MouseButton1Click:Connect(set)
-					
+
 					if v==Default then
 						set()
 					end
 				end
 			end
-			
+
 			rander()
-			
+
 			local DropdownFunctions = {}
-			
+
 			function DropdownFunctions:Text(a)
 				Title.Text =  tostring(a)
 			end
-			
+
 			function DropdownFunctions:Get()
 				return choose
 			end
-			
+
 			function DropdownFunctions:Set(a)
 				choose = a
 				ValueText.Text = tostring(a)
 				UpdateText()
 				callback(a)
 			end
-			
+
 			function DropdownFunctions:Refresh(new,def)
 				info = new or info
 				def = def or info[1]
 				Default = def
 				rander()
 			end
-			
+
 			return DropdownFunctions
 		end
-		
+
 		return TabFunctions
 	end
-	
+
 	local function UI_Toggle(val,timea,k)
 		SaveTran()
 		if timea == 0 then
@@ -1549,7 +1549,7 @@ function Lino:NewWindow(WindowName)
 			end
 			return
 		end
-		
+
 		if val then
 			center.Visible = true
 			left.Visible = true
@@ -1557,42 +1557,42 @@ function Lino:NewWindow(WindowName)
 			for i,v :GuiObject in ipairs(Frame:GetDescendants()) do
 				pcall(function()
 					--if not v:IsDescendantOf(Header) and v~= Header then
-						if v:GetAttribute('MainTran') then
-							
-							pcall(function()
-								if v:GetAttribute('d3') then
-									TweenService:Create(v,TweenInfo.new(timea),{BackgroundTransparency = 0}):Play()
-								end
-							end)
-							
-							if v:isA('Frame') then
-								if v:GetAttribute('MainTran') then
-									TweenService:Create(v,TweenInfo.new(timea),{BackgroundTransparency = v:GetAttribute('MainTran')}):Play()
-								end
-							end
+					if v:GetAttribute('MainTran') then
 
-							if v:isA('ImageLabel') then
-								if v:GetAttribute('MainTran') then
-									TweenService:Create(v,TweenInfo.new(timea),{ImageTransparency = v:GetAttribute('MainTran')}):Play()
-								end
+						pcall(function()
+							if v:GetAttribute('d3') then
+								TweenService:Create(v,TweenInfo.new(timea),{BackgroundTransparency = 0}):Play()
 							end
+						end)
 
-							if v:isA('TextLabel') or v:isA('TextButton') or v:isA('TextBox') then
-								if v:GetAttribute('MainTran') then
-									TweenService:Create(v,TweenInfo.new(timea),{TextTransparency = v:GetAttribute('MainTran')}):Play()
-								end
-							end
-
-							if v:isA('UIStroke') then
-								if v:GetAttribute('MainTran') then
-									TweenService:Create(v,TweenInfo.new(timea),{Transparency = v:GetAttribute('MainTran')}):Play()
-								end
-							end
-						else
-							if v:isA('ScrollingFrame') then
-								TweenService:Create(v,TweenInfo.new(timea),{ScrollBarThickness = 1}):Play()
+						if v:isA('Frame') then
+							if v:GetAttribute('MainTran') then
+								TweenService:Create(v,TweenInfo.new(timea),{BackgroundTransparency = v:GetAttribute('MainTran')}):Play()
 							end
 						end
+
+						if v:isA('ImageLabel') then
+							if v:GetAttribute('MainTran') then
+								TweenService:Create(v,TweenInfo.new(timea),{ImageTransparency = v:GetAttribute('MainTran')}):Play()
+							end
+						end
+
+						if v:isA('TextLabel') or v:isA('TextButton') or v:isA('TextBox') then
+							if v:GetAttribute('MainTran') then
+								TweenService:Create(v,TweenInfo.new(timea),{TextTransparency = v:GetAttribute('MainTran')}):Play()
+							end
+						end
+
+						if v:isA('UIStroke') then
+							if v:GetAttribute('MainTran') then
+								TweenService:Create(v,TweenInfo.new(timea),{Transparency = v:GetAttribute('MainTran')}):Play()
+							end
+						end
+					else
+						if v:isA('ScrollingFrame') then
+							TweenService:Create(v,TweenInfo.new(timea),{ScrollBarThickness = 1}):Play()
+						end
+					end
 					--end
 				end)
 			end
@@ -1623,12 +1623,12 @@ function Lino:NewWindow(WindowName)
 							end
 						end
 					end
-					
-					
+
+
 				end)
 			end
 		end
-		
+
 		coroutine.wrap(function()
 			task.wait(timea + 0.4)
 
@@ -1638,13 +1638,13 @@ function Lino:NewWindow(WindowName)
 			end
 		end)()
 	end
-	
+
 	CloseButton.MouseButton1Click:Connect(function()
 		Create_Ripple(CloseButton)
 		UIToggle = not UIToggle
 		UI_Toggle(UIToggle,0.43)
 	end)
-	
+
 	local dragToggle = nil
 	local dragSpeed = 0.05
 	local dragStart = nil
@@ -1669,7 +1669,7 @@ function Lino:NewWindow(WindowName)
 			end)
 		end
 	end)
-	
+
 	UserInputServie.InputBegan:Connect(function(a,t)
 		if  a.KeyCode == WindowFunctions.Keybind then
 			if not t then
@@ -1678,7 +1678,7 @@ function Lino:NewWindow(WindowName)
 			end
 		end
 	end)
-	
+
 	UserInputServie.InputChanged:Connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
 			if dragToggle then
@@ -1686,7 +1686,7 @@ function Lino:NewWindow(WindowName)
 			end
 		end
 	end)
-	
+
 	function WindowFunctions:OnStartEffect()
 		UI_Toggle(nil,0,1)
 		task.wait(0.01)
@@ -1699,7 +1699,7 @@ function Lino:NewWindow(WindowName)
 		task.wait(1.65)
 		UI_Toggle(true,1)
 	end
-	
+
 	return WindowFunctions
 end
 
@@ -1725,9 +1725,9 @@ function Lino:NewNoify()
 	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
 	UIListLayout.Padding = UDim.new(0, 3)
-	
+
 	local Functions = {}
-	
+
 	function Functions:Notify(Text,Subject,Time,callback)
 		Subject = Subject or "Notification"
 		Time = Time or 4
@@ -1739,15 +1739,15 @@ function Lino:NewNoify()
 		local NoifyBy = Instance.new("TextLabel")
 		local Countdown = Instance.new("Frame")
 		local NoifyText = Instance.new("TextLabel")
-
+		local sizeold = UDim2.new(0, 300, 0.10000006, 0)
+		 
 		NoifyFrame.Name = "NoifyFrame"
 		NoifyFrame.Parent = Frame
 		NoifyFrame.BackgroundColor3 = Lino.BlackgroundColor
 		NoifyFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		NoifyFrame.BorderSizePixel = 0
 		NoifyFrame.Position = UDim2.new(-0.475916475, 0, 0.849999964, 0)
-		NoifyFrame.Size = UDim2.new(-0.122549012, 300, 0.150000006, 0)
-
+		NoifyFrame.Size = sizeold
 		UICorner.CornerRadius = UDim.new(0, 3)
 		UICorner.Parent = NoifyFrame
 
@@ -1783,7 +1783,7 @@ function Lino:NewNoify()
 		NoifyBy.TextWrapped = true
 		NoifyBy.TextXAlignment = Enum.TextXAlignment.Left
 		NoifyBy.RichText = true
-		
+
 		Countdown.Name = "Countdown"
 		Countdown.Parent = NoifyFrame
 		Countdown.AnchorPoint = Vector2.new(0, 1)
@@ -1811,13 +1811,13 @@ function Lino:NewNoify()
 		NoifyText.TextWrapped = true
 		NoifyText.TextXAlignment = Enum.TextXAlignment.Right
 		NoifyText.RichText = true
-		
+
 		local function UpdateText()
 			local size = TextService:GetTextSize(NoifyText.Text,NoifyText.TextSize,NoifyText.Font,Vector2.new(math.huge,math.huge))
-			
-			TweenService:Create(NoifyFrame,TweenInfo.new(0.3),{Size = UDim2.new(0,size.X + 2,0.150000006,0)}):Play()
+
+			TweenService:Create(NoifyFrame,TweenInfo.new(0.3),{Size = UDim2.new(0,size.X + 9,sizeold.Y.Scale,0)}):Play()
 		end
-		
+
 		local function Effect(val,s)
 			if val then
 				TweenService:Create(Countdown,TweenInfo.new(s),{BackgroundTransparency = 0}):Play()
@@ -1833,7 +1833,7 @@ function Lino:NewNoify()
 				TweenService:Create(NoifyFrame,TweenInfo.new(s),{BackgroundTransparency = 1}):Play()
 			end
 		end
-		
+
 		coroutine.wrap(function()
 			Effect(false,0)
 			NoifyFrame.Size = UDim2.new(0,0,0,0)
@@ -1853,7 +1853,7 @@ function Lino:NewNoify()
 			NoifyFrame:Destroy()
 		end)()
 	end
-	
+
 	return Functions
 end
 
