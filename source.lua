@@ -1377,6 +1377,7 @@ function Lino:NewWindow(WindowName)
 			local function atran(number)
 				for i,v : TextButton in ipairs(ScrollingFrame:GetChildren()) do
 					if v:isA('TextButton') then
+						v:SetAttribute("MainTran",number)
 						TweenService:Create(v,TweenInfo.new(0.4,Enum.EasingStyle.Quint),{TextTransparency = number,BackgroundTransparency=number}):Play()
 					end
 				end
