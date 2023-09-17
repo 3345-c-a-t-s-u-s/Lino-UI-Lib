@@ -114,7 +114,10 @@ function Lino:NewWindow(WindowName)
 	UIListLayout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
 		TabButtons.CanvasSize = UDim2.new(0,0,0,UIListLayout.AbsoluteContentSize.Y + 10)
 	end)
-
+	
+	Frame.Active = true
+	Header.Active = true
+	
 	local function SaveTran()
 		for i,v : Frame? |ImageLabel? |TextLabel? |TextButton? |TextBox? |UIStroke? in ipairs(Frame:GetDescendants()) do
 			if v:isA('Frame') then
