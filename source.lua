@@ -1367,8 +1367,8 @@ function Lino:NewWindow(WindowName)
 				local size1 = TextService:GetTextSize(Title.Text,Title.TextSize,Title.Font,Vector2.new(math.huge,math.huge))
 				local size2 = TextService:GetTextSize(ValueText.Text,ValueText.TextSize,ValueText.Font,Vector2.new(math.huge,math.huge))
 
-				TweenService:Create(ValueText,TweenInfo.new(0.4),{Size = UDim2.new(0, size2.X + 9, 0.550000012, 0)}):Play()
-				TweenService:Create(Title,TweenInfo.new(0.4),{Size = UDim2.new(0, size1.X + 9, 0.550000012, 0)}):Play()
+				TweenService:Create(ValueText,TweenInfo.new(0.4),{Size = UDim2.new(0, size2.X + 11, 0.550000012, 0)}):Play()
+				TweenService:Create(Title,TweenInfo.new(0.4),{Size = UDim2.new(0, size1.X + 15, 0.550000012, 0)}):Play()
 			end
 
 			local function atran(number)
