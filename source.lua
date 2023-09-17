@@ -1728,7 +1728,7 @@ function Lino:NewNoify()
 	
 	local Functions = {}
 	
-	function Functions:Noify(Text,Subject,Time,callback)
+	function Functions:Notify(Text,Subject,Time,callback)
 		Subject = Subject or "Notification"
 		Time = Time or 4
 		callback = callback or function() end
