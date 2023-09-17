@@ -5,7 +5,7 @@
 # Example
 
 ```lua
-local UILib = loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/Linona-UI-Lib/main/source"))()
+local UILib = loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/Lino-UI-Lib/main/source.lua"))()
 local Window = UILib:NewWindow("Window")
 local Noify = UILib:NewNoify()
 
