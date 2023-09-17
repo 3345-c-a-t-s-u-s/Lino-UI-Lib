@@ -114,10 +114,10 @@ function Lino:NewWindow(WindowName)
 	UIListLayout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
 		TabButtons.CanvasSize = UDim2.new(0,0,0,UIListLayout.AbsoluteContentSize.Y + 10)
 	end)
-	
-	Frame.Active = true
+
+	Frame.Active = false
 	Header.Active = true
-	
+
 	local function SaveTran()
 		for i,v : Frame? |ImageLabel? |TextLabel? |TextButton? |TextBox? |UIStroke? in ipairs(Frame:GetDescendants()) do
 			if v:isA('Frame') then
@@ -1744,7 +1744,7 @@ function Lino:NewNoify()
 		local Countdown = Instance.new("Frame")
 		local NoifyText = Instance.new("TextLabel")
 		local sizeold = UDim2.new(0, 300, 0.10000006, 0)
-		 
+
 		NoifyFrame.Name = "NoifyFrame"
 		NoifyFrame.Parent = Frame
 		NoifyFrame.BackgroundColor3 = Lino.BlackgroundColor
