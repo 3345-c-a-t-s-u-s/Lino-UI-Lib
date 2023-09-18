@@ -1704,7 +1704,17 @@ function Lino:NewWindow(WindowName)
 		task.wait(1.65)
 		UI_Toggle(true,1)
 	end
-
+	
+	coroutine.wrap(function()
+		Frame.Size = UDim2.new(0,0,0.25,150)
+		UI_Toggle(nil,0,1)
+		task.wait(1.5)
+		if Frame.Size == UDim2.new(0,0,0.25,150) then
+			UI_Toggle(true,1)
+			TweenService:Create(Frame,TweenInfo.new(1.5,Enum.EasingStyle.Quint),{Size = UDim2.new(0.25, 225, 0.25, 150),BackgroundTransparency=0,Position=UDim2.new(0.5,0,0.5,0)}):Play()
+		end
+	end)()
+	
 	return WindowFunctions
 end
 
