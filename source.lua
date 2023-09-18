@@ -1514,130 +1514,132 @@ function Lino:NewWindow(WindowName)
 	end
 
 	local function UI_Toggle(val,timea,k)
-		SaveTran()
-		if timea == 0 then
-			Frame.BackgroundTransparency = k
-			for i,v :GuiObject in ipairs(Frame:GetDescendants()) do
-				pcall(function()
-					if v:GetAttribute('MainTran') then
-						pcall(function()
-							v.BackgroundTransparency = k
-						end)
-
-						pcall(function()
-							if v:GetAttribute('d3') then
-								v.BackgroundTransparency  = k
-							end
-						end)
-
-						pcall(function()
-							v.ImageTransparency =k
-						end)
-
-						pcall(function()
-							v.TextTransparency = k
-						end)
-
-						pcall(function()
-							v.Transparency = k
-						end)
-					else
-						if v:isA('ScrollingFrame') then
-							v.ScrollBarThickness = k
-						end
-					end
-
-				end)
-			end
-			return
-		end
-
-		if val then
-			center.Visible = true
-			left.Visible = true
-			TweenService:Create(Frame,TweenInfo.new(timea - 0.1),{BackgroundTransparency = 0}):Play()
-			for i,v :GuiObject in ipairs(Frame:GetDescendants()) do
-				pcall(function()
-					--if not v:IsDescendantOf(Header) and v~= Header then
-					if v:GetAttribute('MainTran') then
-
-						pcall(function()
-							if v:GetAttribute('d3') then
-								TweenService:Create(v,TweenInfo.new(timea),{BackgroundTransparency = 0}):Play()
-							end
-						end)
-
-						if v:isA('Frame') then
-							if v:GetAttribute('MainTran') then
-								TweenService:Create(v,TweenInfo.new(timea),{BackgroundTransparency = v:GetAttribute('MainTran')}):Play()
-							end
-						end
-
-						if v:isA('ImageLabel') then
-							if v:GetAttribute('MainTran') then
-								TweenService:Create(v,TweenInfo.new(timea),{ImageTransparency = v:GetAttribute('MainTran')}):Play()
-							end
-						end
-
-						if v:isA('TextLabel') or v:isA('TextButton') or v:isA('TextBox') then
-							if v:GetAttribute('MainTran') then
-								TweenService:Create(v,TweenInfo.new(timea),{TextTransparency = v:GetAttribute('MainTran')}):Play()
-							end
-						end
-
-						if v:isA('UIStroke') then
-							if v:GetAttribute('MainTran') then
-								TweenService:Create(v,TweenInfo.new(timea),{Transparency = v:GetAttribute('MainTran')}):Play()
-							end
-						end
-					else
-						if v:isA('ScrollingFrame') then
-							TweenService:Create(v,TweenInfo.new(timea),{ScrollBarThickness = 1}):Play()
-						end
-					end
-					--end
-				end)
-			end
-		else
-			TweenService:Create(Frame,TweenInfo.new(timea + 0.4),{BackgroundTransparency = 1}):Play()
-			for i,v :GuiObject in ipairs(Frame:GetDescendants()) do
-				pcall(function()
-					if not v:IsDescendantOf(Header) and v~= Header then
+		coroutine.wrap(function()
+			SaveTran()
+			if timea == 0 then
+				Frame.BackgroundTransparency = k
+				for i,v :GuiObject in ipairs(Frame:GetDescendants()) do
+					pcall(function()
 						if v:GetAttribute('MainTran') then
 							pcall(function()
-								TweenService:Create(v,TweenInfo.new(timea),{BackgroundTransparency = 1}):Play()
+								v.BackgroundTransparency = k
 							end)
 
 							pcall(function()
-								TweenService:Create(v,TweenInfo.new(timea),{ImageTransparency = 1}):Play()
+								if v:GetAttribute('d3') then
+									v.BackgroundTransparency  = k
+								end
 							end)
 
 							pcall(function()
-								TweenService:Create(v,TweenInfo.new(timea),{TextTransparency = 1}):Play()
+								v.ImageTransparency =k
 							end)
 
 							pcall(function()
-								TweenService:Create(v,TweenInfo.new(timea),{Transparency = 1}):Play()
+								v.TextTransparency = k
+							end)
+
+							pcall(function()
+								v.Transparency = k
 							end)
 						else
 							if v:isA('ScrollingFrame') then
-								TweenService:Create(v,TweenInfo.new(timea),{ScrollBarThickness = 0}):Play()
+								v.ScrollBarThickness = k
 							end
 						end
-					end
 
-
-				end)
+					end)
+				end
+				return
 			end
-		end
 
-		coroutine.wrap(function()
-			task.wait(timea + 0.4)
+			if val then
+				center.Visible = true
+				left.Visible = true
+				TweenService:Create(Frame,TweenInfo.new(timea - 0.1),{BackgroundTransparency = 0}):Play()
+				for i,v :GuiObject in ipairs(Frame:GetDescendants()) do
+					pcall(function()
+						--if not v:IsDescendantOf(Header) and v~= Header then
+						if v:GetAttribute('MainTran') then
 
-			if Frame.BackgroundTransparency == 1 then
-				center.Visible = false
-				left.Visible = false
+							pcall(function()
+								if v:GetAttribute('d3') then
+									TweenService:Create(v,TweenInfo.new(timea),{BackgroundTransparency = 0}):Play()
+								end
+							end)
+
+							if v:isA('Frame') then
+								if v:GetAttribute('MainTran') then
+									TweenService:Create(v,TweenInfo.new(timea),{BackgroundTransparency = v:GetAttribute('MainTran')}):Play()
+								end
+							end
+
+							if v:isA('ImageLabel') then
+								if v:GetAttribute('MainTran') then
+									TweenService:Create(v,TweenInfo.new(timea),{ImageTransparency = v:GetAttribute('MainTran')}):Play()
+								end
+							end
+
+							if v:isA('TextLabel') or v:isA('TextButton') or v:isA('TextBox') then
+								if v:GetAttribute('MainTran') then
+									TweenService:Create(v,TweenInfo.new(timea),{TextTransparency = v:GetAttribute('MainTran')}):Play()
+								end
+							end
+
+							if v:isA('UIStroke') then
+								if v:GetAttribute('MainTran') then
+									TweenService:Create(v,TweenInfo.new(timea),{Transparency = v:GetAttribute('MainTran')}):Play()
+								end
+							end
+						else
+							if v:isA('ScrollingFrame') then
+								TweenService:Create(v,TweenInfo.new(timea),{ScrollBarThickness = 1}):Play()
+							end
+						end
+						--end
+					end)
+				end
+			else
+				TweenService:Create(Frame,TweenInfo.new(timea + 0.4),{BackgroundTransparency = 1}):Play()
+				for i,v :GuiObject in ipairs(Frame:GetDescendants()) do
+					pcall(function()
+						if not v:IsDescendantOf(Header) and v~= Header then
+							if v:GetAttribute('MainTran') then
+								pcall(function()
+									TweenService:Create(v,TweenInfo.new(timea),{BackgroundTransparency = 1}):Play()
+								end)
+
+								pcall(function()
+									TweenService:Create(v,TweenInfo.new(timea),{ImageTransparency = 1}):Play()
+								end)
+
+								pcall(function()
+									TweenService:Create(v,TweenInfo.new(timea),{TextTransparency = 1}):Play()
+								end)
+
+								pcall(function()
+									TweenService:Create(v,TweenInfo.new(timea),{Transparency = 1}):Play()
+								end)
+							else
+								if v:isA('ScrollingFrame') then
+									TweenService:Create(v,TweenInfo.new(timea),{ScrollBarThickness = 0}):Play()
+								end
+							end
+						end
+
+
+					end)
+				end
 			end
+
+			coroutine.wrap(function()
+				task.wait(timea + 0.4)
+
+				if Frame.BackgroundTransparency == 1 then
+					center.Visible = false
+					left.Visible = false
+				end
+			end)()
 		end)()
 	end
 
