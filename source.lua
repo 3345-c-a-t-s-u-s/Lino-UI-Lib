@@ -1119,14 +1119,12 @@ function Lino:NewWindow(WindowName)
 			Frame.InputBegan:Connect(function(Input)
 				if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
 					danger = true
-					--Dbg_can_move = false
 				end
 			end)
 
 			Frame.InputEnded:Connect(function(Input)
 				if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
 					danger = false
-					--Dbg_can_move = true
 				end
 			end)
 
@@ -1692,10 +1690,13 @@ function Lino:NewWindow(WindowName)
 	end)
 
 	function WindowFunctions:OnStartEffect()
+		Frame.Size = UDim2.new(0,0,0.25,150)
 		UI_Toggle(nil,0,1)
 		task.wait(0.01)
+		Frame.Size = UDim2.new(0,0,0.25,150)
 		UI_Toggle(nil,0,1)
 		TweenInfo.new(0.1)
+		Frame.Size = UDim2.new(0,0,0.25,150)
 		UI_Toggle(nil,0,1)
 		Frame.Size = UDim2.new(0,0,0.25,150)
 		Frame.Position = UDim2.new(0.1,0,.5,0)
@@ -1817,9 +1818,10 @@ function Lino:NewNoify()
 		NoifyText.RichText = true
 
 		local function UpdateText()
-			local size = TextService:GetTextSize(NoifyText.Text,NoifyText.TextSize,NoifyText.Font,Vector2.new(math.huge,math.huge))
+			local text = tostring(NoifyText.Text)..tostring(" ")..tostring(NoifyBy.Text)
+			local size = TextService:GetTextSize(text,NoifyText.TextSize,NoifyText.Font,Vector2.new(math.huge,math.huge))
 
-			TweenService:Create(NoifyFrame,TweenInfo.new(0.3),{Size = UDim2.new(0,size.X + 9,sizeold.Y.Scale,0)}):Play()
+			TweenService:Create(NoifyFrame,TweenInfo.new(0.3),{Size = UDim2.new(0,size.X + 3.5,sizeold.Y.Scale,0)}):Play()
 		end
 
 		local function Effect(val,s)
@@ -1839,6 +1841,7 @@ function Lino:NewNoify()
 		end
 
 		coroutine.wrap(function()
+			
 			Effect(false,0)
 			NoifyFrame.Size = UDim2.new(0,0,0,0)
 			task.wait(0.1)
