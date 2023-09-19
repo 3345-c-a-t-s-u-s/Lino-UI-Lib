@@ -6,6 +6,7 @@ local TextService = game:GetService('TextService')
 local UserInputServie = game:GetService('UserInputService')
 local plr = game.Players.LocalPlayer
 local Mouse = plr:GetMouse()
+local IsKeying = false
 
 local Lino = {
 	DefaultColor = Color3.fromRGB(44, 44, 44),
@@ -67,6 +68,17 @@ function Create_Ripple<Effect...>(Parent : Frame, ___)
 	if (___) ~= nil then
 		TweenService:Create(ripple,TweenInfo.new(0.2),{Position =UDim2.new(0.5,0,0.5,0)}):Play()
 	end
+	
+	coroutine.wrap(function()
+		TweenService:Create(ripple,TweenInfo.new(2),{Size = Size_UP,BackgroundTransparency = 1}):Play()
+		task.wait(0.1)
+		TweenService:Create(ripple,TweenInfo.new(2),{Size = Size_UP,BackgroundTransparency = 1}):Play()
+		task.wait(0.1)
+		TweenService:Create(ripple,TweenInfo.new(2),{Size = Size_UP,BackgroundTransparency = 1}):Play()
+		task.wait(0.1)
+		TweenService:Create(ripple,TweenInfo.new(2),{Size = Size_UP,BackgroundTransparency = 1}):Play()
+	end)()
+	
 	game:GetService('Debris'):AddItem(ripple,2.2)
 end
 
@@ -90,6 +102,8 @@ local function CreateButton()
 	return InputButton
 end
 function Lino:NewWindow(WindowName)
+	repeat task.wait(0.01) until not IsKeying
+	
 	local WindowFunctions = {
 		Keybind = Enum.KeyCode.X
 	}
@@ -276,7 +290,7 @@ function Lino:NewWindow(WindowName)
 	UserName.Position = UDim2.new(0.314332396, 0, 0.500000596, 0)
 	UserName.Size = UDim2.new(0.679667532, 0, 0.75, 0)
 	UserName.Font = Enum.Font.RobotoMono
-	UserName.Text = "#"..tostring(plr.UserId)
+	UserName.Text = "#"..tostring(plr.UserId):sub(8)
 	UserName.TextColor3 = Lino.TextColor
 	UserName.TextScaled = true
 	UserName.TextSize = 14.000
@@ -1702,21 +1716,27 @@ function Lino:NewWindow(WindowName)
 		UI_Toggle(nil,0,1)
 		Frame.Size = UDim2.new(0,0,0.25,150)
 		Frame.Position = UDim2.new(0.1,0,.5,0)
+		Frame.BackgroundTransparency = 1
 		TweenService:Create(Frame,TweenInfo.new(1.5,Enum.EasingStyle.Quint),{Size = UDim2.new(0.25, 225, 0.25, 150),BackgroundTransparency=0,Position=UDim2.new(0.5,0,0.5,0)}):Play()
 		task.wait(1.65)
 		UI_Toggle(true,1)
 	end
-	
+
 	coroutine.wrap(function()
 		Frame.Size = UDim2.new(0,0,0.25,150)
+		Frame.Size = UDim2.new(0,0,0.25,150)
+		Frame.Position = UDim2.new(0.1,0,.5,0)
+		Frame.BackgroundTransparency = 1
 		UI_Toggle(nil,0,1)
 		task.wait(1.5)
 		if Frame.Size == UDim2.new(0,0,0.25,150) then
-			UI_Toggle(true,1)
+			UI_Toggle(nil,0,1)
 			TweenService:Create(Frame,TweenInfo.new(1.5,Enum.EasingStyle.Quint),{Size = UDim2.new(0.25, 225, 0.25, 150),BackgroundTransparency=0,Position=UDim2.new(0.5,0,0.5,0)}):Play()
+			task.wait(1.75)
+			UI_Toggle(true,1)
 		end
 	end)()
-	
+
 	return WindowFunctions
 end
 
@@ -1853,7 +1873,7 @@ function Lino:NewNoify()
 		end
 
 		coroutine.wrap(function()
-			
+
 			Effect(false,0)
 			NoifyFrame.Size = UDim2.new(0,0,0,0)
 			task.wait(0.1)
@@ -1874,6 +1894,247 @@ function Lino:NewNoify()
 	end
 
 	return Functions
+end
+
+function Lino:SettupKeySystem(TitleName,ButtonText,LinkToGetKey,callback)
+	callback = callback or function() return true end
+	ButtonText = ButtonText or "Get Key"
+	LinkToGetKey = LinkToGetKey or "1234"
+	TitleName = TitleName or "Key System"
+	IsKeying = true
+	
+	local ScreenGui = Instance.new("ScreenGui")
+	local Frame = Instance.new("Frame")
+	local DropShadow = Instance.new("ImageLabel")
+	local HeadLabl = Instance.new("TextLabel")
+	local Frame_2 = Instance.new("Frame")
+	local GetButton = Instance.new("TextButton")
+	local UICorner = Instance.new("UICorner")
+	local UIStroke = Instance.new("UIStroke")
+	local SubmitButton = Instance.new("TextButton")
+	local UICorner_2 = Instance.new("UICorner")
+	local UIStroke_2 = Instance.new("UIStroke")
+	local TextBox = Instance.new("TextBox")
+	
+	local function settupvaluee(val,ta)
+		if val then
+			Frame.Position = UDim2.new(0.5,0,.9,0)
+			TweenService:Create(Frame,TweenInfo.new(1.5,Enum.EasingStyle.Quint),{Position = UDim2.fromScale(.5,.5)}):Play()
+			
+			for i,v:ImageLabel in ipairs(ScreenGui:GetDescendants()) do
+				if  v:isA('TextLabel') or v:isA('TextBox') then
+					local oold = v.TextTransparency
+					v.TextTransparency =  1
+					TweenService:Create(v,TweenInfo.new(ta),{TextTransparency = oold}):Play()
+
+					if v.BackgroundTransparency ~= 1 then
+						local oold = v.BackgroundTransparency
+						v.BackgroundTransparency =  1
+						TweenService:Create(v,TweenInfo.new(ta),{BackgroundTransparency = oold}):Play()
+					end
+				end
+
+				if  v:isA('Frame') then
+					local oold = v.BackgroundTransparency
+					v.BackgroundTransparency =  1
+					TweenService:Create(v,TweenInfo.new(ta),{BackgroundTransparency = oold}):Play()
+				end
+
+				if  v:isA('ImageLabel') then
+					local oold = v.ImageTransparency
+					v.ImageTransparency =  1
+					TweenService:Create(v,TweenInfo.new(ta),{ImageTransparency = oold}):Play()
+				end
+			end
+		else
+			TweenService:Create(Frame,TweenInfo.new(1.5,Enum.EasingStyle.Quint),{Position = UDim2.fromScale(.5,1.1)}):Play()
+			
+			for i,v:ImageLabel in ipairs(ScreenGui:GetDescendants()) do
+				pcall(function()
+					TweenService:Create(v,TweenInfo.new(ta),{TextTransparency = 1}):Play()
+				end)
+					pcall(function()
+						TweenService:Create(v,TweenInfo.new(ta),{BackgroundTransparency = 1}):Play()
+					end)
+
+				pcall(function()
+					TweenService:Create(v,TweenInfo.new(ta),{BackgroundTransparency = 1}):Play()
+				end)
+
+				pcall(function()
+					TweenService:Create(v,TweenInfo.new(ta),{ImageTransparency = 1}):Play()
+				end)
+			end
+		end
+	end
+	
+	ScreenGui.Parent = UIPB
+	ScreenGui.ResetOnSpawn = false
+	ScreenGui.IgnoreGuiInset = true
+	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+	
+	Frame.Parent = ScreenGui
+	Frame.AnchorPoint = Vector2.new(0.5, 0.5)
+	Frame.BackgroundColor3 = Lino.BlackgroundColor
+	Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Frame.BorderSizePixel = 0
+	Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
+	Frame.Size = UDim2.new(0.150000006, 150, 0.150000006, 100)
+
+	DropShadow.Name = "DropShadow"
+	DropShadow.Parent = Frame
+	DropShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	DropShadow.BackgroundTransparency = 1.000
+	DropShadow.BorderSizePixel = 0
+	DropShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	DropShadow.Size = UDim2.new(1, 47, 1, 47)
+	DropShadow.ZIndex = -2
+	DropShadow.Image = "rbxassetid://6014261993"
+	DropShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+	DropShadow.ImageTransparency = 0.500
+	DropShadow.ScaleType = Enum.ScaleType.Slice
+	DropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
+
+	HeadLabl.Name = "HeadLabl"
+	HeadLabl.Parent = Frame
+	HeadLabl.AnchorPoint = Vector2.new(0.5, 0)
+	HeadLabl.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	HeadLabl.BackgroundTransparency = 1.000
+	HeadLabl.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	HeadLabl.BorderSizePixel = 0
+	HeadLabl.Position = UDim2.new(0.5, 0, 0.0500000007, 0)
+	HeadLabl.Size = UDim2.new(0.949999988, 0, 0.150000006, 0)
+	HeadLabl.Font = Enum.Font.RobotoMono
+	HeadLabl.Text = TitleName or "Key System"
+	HeadLabl.TextColor3 = Lino.TextColor
+	HeadLabl.TextScaled = true
+	HeadLabl.TextSize = 14.000
+	HeadLabl.TextWrapped = true
+
+	Frame_2.Parent = Frame
+	Frame_2.AnchorPoint = Vector2.new(0.5, 0)
+	Frame_2.BackgroundColor3 = Lino.DefaultColor
+	Frame_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Frame_2.BorderSizePixel = 0
+	Frame_2.Position = UDim2.new(0.5, 0, 0.272905767, 0)
+	Frame_2.Size = UDim2.new(1, 0, 0.00999999978, 0)
+
+	GetButton.Name = "GetButton"
+	GetButton.Parent = Frame
+	GetButton.AnchorPoint = Vector2.new(0.5, 0)
+	GetButton.BackgroundColor3 = Lino.DefaultColor
+	GetButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	GetButton.BorderSizePixel = 0
+	GetButton.Position = UDim2.new(0.245955393, 0, 0.786188662, 0)
+	GetButton.Size = UDim2.new(0.400000006, 0, 0.165038258, 0)
+	GetButton.Font = Enum.Font.RobotoMono
+	GetButton.Text = ButtonText or "Get Key"
+	GetButton.TextColor3 = Lino.TextColor
+	GetButton.TextScaled = true
+	GetButton.TextSize = 14.000
+	GetButton.TextWrapped = true
+
+	UICorner.CornerRadius = UDim.new(0, 2)
+	UICorner.Parent = GetButton
+
+	UIStroke.Transparency = 0.650
+	UIStroke.Color = Color3.fromRGB(255, 255, 255)
+	UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+	UIStroke.Parent = GetButton
+
+	SubmitButton.Name = "SubmitButton"
+	SubmitButton.Parent = Frame
+	SubmitButton.AnchorPoint = Vector2.new(0.5, 0)
+	SubmitButton.BackgroundColor3 = Lino.DefaultColor
+	SubmitButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	SubmitButton.BorderSizePixel = 0
+	SubmitButton.Position = UDim2.new(0.750702143, 0, 0.786188662, 0)
+	SubmitButton.Size = UDim2.new(0.400000006, 0, 0.165038258, 0)
+	SubmitButton.Font = Enum.Font.RobotoMono
+	SubmitButton.Text = "Submit"
+	SubmitButton.TextColor3 = Lino.TextColor
+	SubmitButton.TextScaled = true
+	SubmitButton.TextSize = 14.000
+	SubmitButton.TextWrapped = true
+
+	UICorner_2.CornerRadius = UDim.new(0, 2)
+	UICorner_2.Parent = SubmitButton
+
+	UIStroke_2.Transparency = 0.650
+	UIStroke_2.Color = Color3.fromRGB(255, 255, 255)
+	UIStroke_2.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+	UIStroke_2.Parent = SubmitButton
+
+	TextBox.Parent = Frame
+	TextBox.AnchorPoint = Vector2.new(0.5, 0)
+	TextBox.BackgroundColor3 = Lino.DefaultColor
+	TextBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TextBox.BorderSizePixel = 0
+	TextBox.Position = UDim2.new(0.5, 0, 0.493442565, 0)
+	TextBox.Size = UDim2.new(0.949999988, 0, 0.100000001, 0)
+	TextBox.ClearTextOnFocus = false
+	TextBox.Font = Enum.Font.RobotoMono
+	TextBox.PlaceholderText = "Paste Key"
+	TextBox.Text = ""
+	TextBox.TextColor3 = Lino.TextColor
+	TextBox.TextScaled = true
+	TextBox.TextSize = 14.000
+	TextBox.TextWrapped = true
+	TextBox.TextXAlignment = Enum.TextXAlignment.Left
+	
+	settupvaluee(true,0.5)
+	
+	GetButton.MouseButton1Click:Connect(function()
+		Create_Ripple(GetButton)
+		
+		pcall(function()
+			setclipboard(tostring(LinkToGetKey))
+		end)
+		
+		pcall(function()
+			toclipboard(tostring(LinkToGetKey))
+		end)
+	end)
+	
+	local ischecking = false
+	
+	SubmitButton.MouseButton1Click:Connect(function()
+		if ischecking then
+			return
+		end
+		
+		ischecking = true
+		
+		SubmitButton.Text = "Checking"
+		
+		local a = pcall(function()
+			if callback(TextBox.Text) then
+				SubmitButton.TextColor3 = Color3.fromHSV(0.269278, 1, 1)
+				TweenService:Create(SubmitButton,TweenInfo.new(0.4),{TextColor3 = Lino.TextColor}):Play()
+				settupvaluee(false,.65)
+				SubmitButton.Text = "Pass"
+				
+				task.wait(0.2)
+
+				IsKeying = false
+			else 
+				SubmitButton.TextColor3 = Color3.fromHSV(0.997389, 1, 1)
+				TweenService:Create(SubmitButton,TweenInfo.new(0.4),{TextColor3 = Lino.TextColor}):Play()
+				IsKeying = true
+				SubmitButton.Text = "Submit"
+			end
+		end)
+		
+		
+		if not a then
+			SubmitButton.TextColor3 = Color3.fromHSV(0.997389, 1, 1)
+			TweenService:Create(SubmitButton,TweenInfo.new(0.4),{TextColor3 = Lino.TextColor}):Play()
+			IsKeying = true
+			SubmitButton.Text = "Submit"
+		end
+		
+		ischecking = false
+	end)
 end
 
 return Lino
