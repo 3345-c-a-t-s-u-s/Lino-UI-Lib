@@ -5,16 +5,18 @@
 # Example
 
 ```lua
-local UILib = loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/Lino-UI-Lib/main/source.lua"))()
+local UILib = require(script.Parent)
 local Window = UILib:NewWindow("Window")
 local Noify = UILib:NewNoify()
 
 local Tab = Window:NewTab("Tab")
+local ThemeTab = Window:NewTab("Theme")
 
 Tab:NewLabel("Example Tab")
 
 Tab:NewButton('Button',function()
 	print('Button')
+	Noify:Notify("Button",'UI',3)
 end)
 
 Tab:NewToggle("Toggle",false,function(val)
@@ -35,6 +37,31 @@ end)
 
 Tab:NewDropdown("Dropdown",{"Item 1","Item 2","Item 3"},"Item 1",function(val)
 	print("Dropdown",val)
+end)
+
+ThemeTab:NewColorPicker('Default',UILib.DefaultColor,function(a)
+	UILib.DefaultColor=a
+	Window:UpdateTheme()
+end)
+
+ThemeTab:NewColorPicker('Blackground',UILib.BlackgroundColor,function(a)
+	UILib.BlackgroundColor=a
+	Window:UpdateTheme()
+end)
+
+ThemeTab:NewColorPicker('Text Color',UILib.TextColor,function(a)
+	UILib.TextColor=a
+	Window:UpdateTheme()
+end)
+
+ThemeTab:NewColorPicker('Scrolling Color',UILib.ScrollingColor,function(a)
+	UILib.ScrollingColor=a
+	Window:UpdateTheme()
+end)
+
+ThemeTab:NewColorPicker('DropShadow Color',UILib.DropShadowColor,function(a)
+	UILib.DropShadowColor=a
+	Window:UpdateTheme()
 end)
 ```
 ## Confix
