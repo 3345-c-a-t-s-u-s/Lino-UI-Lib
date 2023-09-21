@@ -68,7 +68,7 @@ function Create_Ripple<Effect...>(Parent : Frame, ___)
 	if (___) ~= nil then
 		TweenService:Create(ripple,TweenInfo.new(0.2),{Position =UDim2.new(0.5,0,0.5,0)}):Play()
 	end
-	
+
 	coroutine.wrap(function()
 		TweenService:Create(ripple,TweenInfo.new(2),{Size = Size_UP,BackgroundTransparency = 1}):Play()
 		task.wait(0.1)
@@ -78,7 +78,7 @@ function Create_Ripple<Effect...>(Parent : Frame, ___)
 		task.wait(0.1)
 		TweenService:Create(ripple,TweenInfo.new(2),{Size = Size_UP,BackgroundTransparency = 1}):Play()
 	end)()
-	
+
 	game:GetService('Debris'):AddItem(ripple,2.2)
 end
 
@@ -103,7 +103,7 @@ local function CreateButton()
 end
 function Lino:NewWindow(WindowName)
 	repeat task.wait(0.01) until not IsKeying
-	
+
 	local WindowFunctions = {
 		Keybind = Enum.KeyCode.X
 	}
@@ -173,6 +173,8 @@ function Lino:NewWindow(WindowName)
 	Frame.BorderSizePixel = 0
 	Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
 	Frame.Size = UDim2.new(0.25, 225, 0.25, 150)
+	
+	Frame:SetAttribute("Theme","BackgroundColor3 BlackgroundColor")
 
 	DropShadow.Name = "DropShadow"
 	DropShadow.Parent = Frame
@@ -187,14 +189,17 @@ function Lino:NewWindow(WindowName)
 	DropShadow.ImageTransparency = 0.500
 	DropShadow.ScaleType = Enum.ScaleType.Slice
 	DropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
-
+	
+	DropShadow:SetAttribute("Theme","ImageColor3 DropShadowColor")
+	
 	Header.Name = "Header"
 	Header.Parent = Frame
 	Header.BackgroundColor3 = Lino.DefaultColor
 	Header.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	Header.BorderSizePixel = 0
 	Header.Size = UDim2.new(1, 0, 0.100000001, 0)
-
+	Header:SetAttribute("Theme","BackgroundColor3 DefaultColor")
+	
 	Title.Name = "Title"
 	Title.Parent = Header
 	Title.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -211,7 +216,8 @@ function Lino:NewWindow(WindowName)
 	Title.TextSize = 14.000
 	Title.TextWrapped = true
 	Title.TextXAlignment = Enum.TextXAlignment.Left
-
+	Title:SetAttribute("Theme","TextColor3 TextColor")
+	
 	CloseButton.Name = "CloseButton"
 	CloseButton.Parent = Header
 	CloseButton.AnchorPoint = Vector2.new(0, 0.5)
@@ -228,7 +234,9 @@ function Lino:NewWindow(WindowName)
 	CloseButton.TextScaled = true
 	CloseButton.TextSize = 14.000
 	CloseButton.TextWrapped = true
-
+	
+	CloseButton:SetAttribute("Theme","TextColor3 TextColor")
+	
 	UIStroke.Color = Color3.fromRGB(29, 29, 29)
 	UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 	UIStroke.Parent = CloseButton
@@ -254,7 +262,8 @@ function Lino:NewWindow(WindowName)
 	TabButtons.ZIndex = 5
 	TabButtons.ScrollBarThickness = 1
 	TabButtons.ScrollBarImageColor3 = Lino.ScrollingColor
-
+	TabButtons:SetAttribute("Theme","ScrollBarImageColor3 ScrollingColor")
+	
 	UIListLayout.Parent = TabButtons
 	UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -262,12 +271,12 @@ function Lino:NewWindow(WindowName)
 
 	Frame_2.Parent = left
 	Frame_2.AnchorPoint = Vector2.new(0.5, 1)
-	Frame_2.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+	Frame_2.BackgroundColor3 = Lino.DefaultColor
 	Frame_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	Frame_2.BorderSizePixel = 0
 	Frame_2.Position = UDim2.new(0.5, 0, 0.99000001, 0)
 	Frame_2.Size = UDim2.new(0.949999988, 0, 0.115500003, 0)
-
+	Frame_2:SetAttribute('Theme',"BackgroundColor3 DefaultColor")
 	UserImage.Name = "UserImage"
 	UserImage.Parent = Frame_2
 	UserImage.AnchorPoint = Vector2.new(0, 0.5)
@@ -290,13 +299,14 @@ function Lino:NewWindow(WindowName)
 	UserName.Position = UDim2.new(0.314332396, 0, 0.500000596, 0)
 	UserName.Size = UDim2.new(0.679667532, 0, 0.75, 0)
 	UserName.Font = Enum.Font.RobotoMono
-	UserName.Text = "#"..tostring(plr.UserId):sub(8)
+	UserName.Text = "#"..tostring(plr.UserId):sub(0,5)..tostring('***')
 	UserName.TextColor3 = Lino.TextColor
 	UserName.TextScaled = true
 	UserName.TextSize = 14.000
 	UserName.TextWrapped = true
 	UserName.TextXAlignment = Enum.TextXAlignment.Left
-
+	UserName:SetAttribute("Theme","TextColor3 TextColor")
+	
 	center.Name = "center"
 	center.Parent = Frame
 	center.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
@@ -320,7 +330,8 @@ function Lino:NewWindow(WindowName)
 		TabButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		TabButton.BorderSizePixel = 0
 		TabButton.Size = UDim2.new(0.949999988, 0, 0.5, 0)
-
+		TabButton:SetAttribute("Theme","BackgroundColor3 DefaultColor")
+		
 		UIAspectRatioConstraint.Parent = TabButton
 		UIAspectRatioConstraint.AspectRatio = 5
 		UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
@@ -351,7 +362,8 @@ function Lino:NewWindow(WindowName)
 		TextLabel.TextSize = 14.000
 		TextLabel.TextWrapped = true
 		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
-
+		TextLabel:SetAttribute("Theme","TextColor3 TextColor")
+		
 		UICorner.CornerRadius = UDim.new(0, 3)
 		UICorner.Parent = TabButton
 
@@ -375,7 +387,8 @@ function Lino:NewWindow(WindowName)
 		Tab.ZIndex = 5
 		Tab.ScrollBarThickness = 1
 		Tab.ScrollBarImageColor3 = Lino.ScrollingColor
-
+		Tab:SetAttribute("Theme","ScrollBarImageColor3 ScrollingColor")
+		
 		UIListLayout.Parent = Tab
 		UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -428,6 +441,7 @@ function Lino:NewWindow(WindowName)
 			Label.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			Label.BorderSizePixel = 0
 			Label.Size = UDim2.new(0.949999988, 0, 0.5, 0)
+			Label:SetAttribute("Theme","BackgroundColor3 DefaultColor")
 
 			UIAspectRatioConstraint.Parent = Label
 			UIAspectRatioConstraint.AspectRatio = 15.000
@@ -452,7 +466,8 @@ function Lino:NewWindow(WindowName)
 			Title.TextWrapped = true
 			Title.Text = LabelName
 			Title:SetAttribute("d3",0)
-
+			Title:SetAttribute("Theme","TextColor3 TextColor")
+			
 			Bar.Name = "Bar"
 			Bar.Parent = Label
 			Bar.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -502,7 +517,8 @@ function Lino:NewWindow(WindowName)
 			Button.BorderSizePixel = 0
 			Button.Size = UDim2.new(0.949999988, 0, 0.5, 0)
 			Button.ZIndex = 8
-
+			Button:SetAttribute("Theme","BackgroundColor3 DefaultColor")
+			
 			UIAspectRatioConstraint.Parent = Button
 			UIAspectRatioConstraint.AspectRatio = 10.000
 			UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
@@ -528,7 +544,8 @@ function Lino:NewWindow(WindowName)
 			Title.TextWrapped = true
 			Title.TextXAlignment = Enum.TextXAlignment.Left
 			Title.ZIndex = 9
-
+			Title:SetAttribute("Theme","TextColor3 TextColor")
+			
 			Icon.Name = "Icon"
 			Icon.Parent = Button
 			Icon.AnchorPoint = Vector2.new(1, 0.5)
@@ -605,7 +622,8 @@ function Lino:NewWindow(WindowName)
 			Toggle.BorderSizePixel = 0
 			Toggle.Size = UDim2.new(0.949999988, 0, 0.5, 0)
 			Toggle.ZIndex = 6
-
+			Toggle:SetAttribute("Theme","BackgroundColor3 DefaultColor")
+			
 			UIAspectRatioConstraint.Parent = Toggle
 			UIAspectRatioConstraint.AspectRatio = 10.000
 			UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
@@ -630,7 +648,8 @@ function Lino:NewWindow(WindowName)
 			Title.TextSize = 15.000
 			Title.TextWrapped = true
 			Title.TextXAlignment = Enum.TextXAlignment.Left
-
+			Title:SetAttribute("Theme","TextColor3 TextColor")
+			
 			InputButton.Name = "InputButton"
 			InputButton.Parent = Toggle
 			InputButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -735,6 +754,8 @@ function Lino:NewWindow(WindowName)
 			Textbox.BorderSizePixel = 0
 			Textbox.Size = UDim2.new(0.949999988, 0, 0.5, 0)
 			Textbox.ZIndex = 6
+			Textbox:SetAttribute("Theme","BackgroundColor3 DefaultColor")
+			
 			UIAspectRatioConstraint.Parent = Textbox
 			UIAspectRatioConstraint.AspectRatio = 6.560
 			UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
@@ -759,7 +780,8 @@ function Lino:NewWindow(WindowName)
 			Title.TextSize = 15.000
 			Title.TextWrapped = true
 			Title.TextXAlignment = Enum.TextXAlignment.Left
-
+			Title:SetAttribute("Theme","TextColor3 TextColor")
+			
 			UIAspectRatioConstraint_2.Parent = Title
 			UIAspectRatioConstraint_2.AspectRatio = 15.000
 			UIAspectRatioConstraint_2.AspectType = Enum.AspectType.ScaleWithParentSize
@@ -798,6 +820,7 @@ function Lino:NewWindow(WindowName)
 			TextBox.TextScaled = true
 			TextBox.TextSize = 10.000
 			TextBox.TextTransparency = 0.500
+			TextBox:SetAttribute("Theme","TextColor3 TextColor")
 			--TextBox.TextWrapped = true
 			TextBox.TextXAlignment = Enum.TextXAlignment.Left
 			TextBox.PlaceholderText = InputText
@@ -872,7 +895,8 @@ function Lino:NewWindow(WindowName)
 			Keybind.BorderSizePixel = 0
 			Keybind.Size = UDim2.new(0.949999988, 0, 0.5, 0)
 			Keybind.ZIndex = 6
-
+			Keybind:SetAttribute("Theme","BackgroundColor3 DefaultColor")
+			
 			UIAspectRatioConstraint.Parent = Keybind
 			UIAspectRatioConstraint.AspectRatio = 10.000
 			UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
@@ -897,7 +921,8 @@ function Lino:NewWindow(WindowName)
 			Title.TextSize = 15.000
 			Title.TextWrapped = true
 			Title.TextXAlignment = Enum.TextXAlignment.Left
-
+			Title:SetAttribute("Theme","TextColor3 TextColor")
+			
 			InputButton.Name = "InputButton"
 			InputButton.Parent = Keybind
 			InputButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -949,7 +974,8 @@ function Lino:NewWindow(WindowName)
 			Key.TextTransparency = 0.500
 			Key.TextWrapped = true
 			Key.ZIndex = 10
-
+			Key:SetAttribute("Theme","TextColor3 TextColor")
+			
 			local function UpdateText()
 				local size = TextService:GetTextSize(Key.Text,Key.TextSize,Key.Font,Vector2.new(math.huge,math.huge))
 
@@ -1029,7 +1055,8 @@ function Lino:NewWindow(WindowName)
 			Slider.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			Slider.BorderSizePixel = 0
 			Slider.Size = UDim2.new(0.949999988, 0, 0.5, 0)
-
+			Slider:SetAttribute("Theme","BackgroundColor3 DefaultColor")
+			
 			UIAspectRatioConstraint.Parent = Slider
 			UIAspectRatioConstraint.AspectRatio = 8.000
 			UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
@@ -1054,7 +1081,8 @@ function Lino:NewWindow(WindowName)
 			Title.TextSize = 15.000
 			Title.TextWrapped = true
 			Title.TextXAlignment = Enum.TextXAlignment.Left
-
+			Title:SetAttribute("Theme","TextColor3 TextColor")
+			
 			UIStroke.Transparency = 1.000
 			UIStroke.Color = Color3.fromRGB(85, 85, 85)
 			UIStroke.Parent = Slider
@@ -1121,7 +1149,8 @@ function Lino:NewWindow(WindowName)
 			ValueText.TextSize = 15.000
 			ValueText.TextWrapped = true
 			ValueText.TextXAlignment = Enum.TextXAlignment.Right
-
+			ValueText:SetAttribute("Theme","TextColor3 TextColor")
+			
 			local function UpdateText()
 				local a = TextService:GetTextSize(ValueText.Text,ValueText.TextSize,ValueText.Font,Vector2.new(math.huge,math.huge))
 
@@ -1218,11 +1247,11 @@ function Lino:NewWindow(WindowName)
 
 			Dropdown.Name = "Dropdown"
 			Dropdown.Parent = Tab
-			Dropdown.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
+			Dropdown.BackgroundColor3 = Lino.BlackColor
 			Dropdown.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			Dropdown.BorderSizePixel = 0
 			Dropdown.Size = UDim2.new(0.949999988, 0, 0.5, 0)
-
+			Dropdown:SetAttribute('Theme',"BackgroundColor3 BlackColor")
 
 			UIListLayout_2.Parent = ScrollingFrame
 			UIListLayout_2.HorizontalAlignment = Enum.HorizontalAlignment.Center
@@ -1256,7 +1285,8 @@ function Lino:NewWindow(WindowName)
 			Top.BorderSizePixel = 0
 			Top.Size = UDim2.new(1, 0, 1, 0)
 			Top.ZIndex = 4
-
+			Top:SetAttribute("Theme","BackgroundColor3 DefaultColor")
+			
 			UIAspectRatioConstraint_2.Parent = Top
 			UIAspectRatioConstraint_2.AspectRatio = 10.000
 			UIAspectRatioConstraint_2.AspectType = Enum.AspectType.ScaleWithParentSize
@@ -1296,7 +1326,8 @@ function Lino:NewWindow(WindowName)
 			DropdownIcon.TextScaled = true
 			DropdownIcon.TextSize = 14.000
 			DropdownIcon.TextWrapped = true
-
+			DropdownIcon:SetAttribute("Theme","TextColor3 TextColor")
+			
 			InputButton.Name = "InputButton"
 			InputButton.Parent = Top
 			InputButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1343,7 +1374,8 @@ function Lino:NewWindow(WindowName)
 			Title.TextSize = 15.000
 			Title.TextWrapped = true
 			Title.TextXAlignment = Enum.TextXAlignment.Left
-
+			Title:SetAttribute("Theme","TextColor3 TextColor")
+			
 			ValueText.Name = "ValueText"
 			ValueText.Parent = TextFont
 			ValueText.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -1361,7 +1393,8 @@ function Lino:NewWindow(WindowName)
 			ValueText.TextSize = 15.000
 			ValueText.TextTransparency = 0.500
 			ValueText.TextWrapped = true
-
+			ValueText:SetAttribute("Theme","TextColor3 TextColor")
+			
 			ScrollingFrame.Parent = Dropdown
 			ScrollingFrame.Active = true
 			ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1373,7 +1406,9 @@ function Lino:NewWindow(WindowName)
 			ScrollingFrame.ZIndex = 5
 			ScrollingFrame.ScrollBarThickness = 1
 			ScrollingFrame.ScrollBarImageColor3 = Lino.ScrollingColor
-
+			ScrollingFrame:SetAttribute("Theme","ScrollBarImageColor3 ScrollingColor")
+			
+			
 			UIAspectRatioConstraint_3.Parent = ScrollingFrame
 			UIAspectRatioConstraint_3.AspectRatio = 3.500
 			UIAspectRatioConstraint_3.AspectType = Enum.AspectType.ScaleWithParentSize
@@ -1452,7 +1487,10 @@ function Lino:NewWindow(WindowName)
 				Button.TextSize = 14.000
 				Button.TextWrapped = true
 				Button.ZIndex = 6
-
+				
+				Button:SetAttribute("Theme","TextColor3 TextColor")
+				Button:SetAttribute("Theme2","BackgroundColor3 DefaultColor")
+				
 				UIAspectRatioConstraint.Parent = Button
 				UIAspectRatioConstraint.AspectRatio = 10.000
 				UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
@@ -1523,7 +1561,385 @@ function Lino:NewWindow(WindowName)
 
 			return DropdownFunctions
 		end
+		
+		function TabFunctions:NewColorPicker(ColorPickerName,Default,callback)
+			Default=Default or Color3.fromRGB(255, 255, 255)
+			callback=callback or function()
+				
+			end
+			
+			local ColorPicker = Instance.new("Frame")
+			local UIListLayout = Instance.new("UIListLayout")
+			local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
+			local UICorner = Instance.new("UICorner")
+			local UIStroke = Instance.new("UIStroke")
+			local Top = Instance.new("Frame")
+			local UIAspectRatioConstraint_2 = Instance.new("UIAspectRatioConstraint")
+			local TextFont = Instance.new("Frame")
+			local UIListLayout_2 = Instance.new("UIListLayout")
+			local Title = Instance.new("TextLabel")
+			local Icon = Instance.new("Frame")
+			local UICorner_2 = Instance.new("UICorner")
+			local UIStroke_2 = Instance.new("UIStroke")
+			local InputButton = Instance.new("TextButton")
+			local MainFrame = Instance.new("Frame")
+			local RGB = Instance.new("ImageLabel")
+			local Marker = Instance.new("Frame")
+			local ImageLabel = Instance.new("ImageLabel")
+			local Value = Instance.new("ImageLabel")
+			local Marker_2 = Instance.new("Frame")
+			local TextLabel = Instance.new("TextLabel")
+			local UIAspectRatioConstraint_3 = Instance.new("UIAspectRatioConstraint")
 
+			ColorPicker.Name = "ColorPicker"
+			ColorPicker.Parent = Tab
+			ColorPicker.BackgroundColor3 = Lino.BlackColor
+			ColorPicker.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			ColorPicker.BorderSizePixel = 0
+			ColorPicker.Size = UDim2.new(0.949999988, 0, 0.5, 0)
+			ColorPicker:SetAttribute('Theme',"BackgroundColor3 BlackColor")
+			UIListLayout.Parent = ColorPicker
+			UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+			UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+			UIListLayout.Padding = UDim.new(0, 3)
+
+			UIAspectRatioConstraint.Parent = ColorPicker
+			UIAspectRatioConstraint.AspectRatio = 10.000
+			UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
+
+			UICorner.CornerRadius = UDim.new(0, 3)
+			UICorner.Parent = ColorPicker
+
+			UIStroke.Transparency = 1.000
+			UIStroke.Color = Color3.fromRGB(85, 85, 85)
+			UIStroke.Parent = ColorPicker
+
+			Top.Name = "Top"
+			Top.Parent = ColorPicker
+			Top.BackgroundColor3 = Lino.DefaultColor
+			
+			Top.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			Top.BorderSizePixel = 0
+			Top.Size = UDim2.new(1, 0, 1, 0)
+			Top.ZIndex = 4
+			Top:SetAttribute('Theme',"BackgroundColor3 DefaultColor")
+			
+			UIAspectRatioConstraint_2.Parent = Top
+			UIAspectRatioConstraint_2.AspectRatio = 10.000
+			UIAspectRatioConstraint_2.AspectType = Enum.AspectType.ScaleWithParentSize
+
+			TextFont.Name = "TextFont"
+			TextFont.Parent = Top
+			TextFont.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			TextFont.BackgroundTransparency = 1.000
+			TextFont.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			TextFont.BorderSizePixel = 0
+			TextFont.Position = UDim2.new(0.0250002109, 0, 0, 0)
+			TextFont.Size = UDim2.new(0.79044497, 0, 1, 0)
+			TextFont.ZIndex = 5
+
+			UIListLayout_2.Parent = TextFont
+			UIListLayout_2.FillDirection = Enum.FillDirection.Horizontal
+			UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+			UIListLayout_2.VerticalAlignment = Enum.VerticalAlignment.Center
+
+			Title.Name = "Title"
+			Title.Parent = TextFont
+			Title.AnchorPoint = Vector2.new(0.5, 0.5)
+			Title.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+			Title.BackgroundTransparency = 1.000
+			Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			Title.BorderSizePixel = 0
+			Title.Position = UDim2.new(0.517898083, 0, 0.499999583, 0)
+			Title.Size = UDim2.new(0.758300483, 66, 0.550000012, 0)
+			Title.ZIndex = 7
+			Title.Font = Enum.Font.RobotoMono
+			Title.Text = ColorPickerName or "ColorPicker"
+			Title.TextColor3 = Lino.TextColor
+			Title.TextScaled = true
+			Title.TextSize = 15.000
+			Title.TextWrapped = true
+			Title.TextXAlignment = Enum.TextXAlignment.Left
+			Title:SetAttribute("Theme","TextColor3 TextColor")
+			Icon.Name = "Icon"
+			Icon.Parent = Top
+			Icon.AnchorPoint = Vector2.new(1, 0.5)
+			Icon.BackgroundColor3 = Default
+			Icon.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			Icon.BorderSizePixel = 0
+			Icon.Position = UDim2.new(0.980000019, 0, 0.5, 0)
+			Icon.Size = UDim2.new(0.125, 0, 0.550000012, 0)
+			Icon.ZIndex = 9
+
+			UICorner_2.CornerRadius = UDim.new(0.5, 0)
+			UICorner_2.Parent = Icon
+
+			UIStroke_2.Color = Color3.fromRGB(18, 18, 18)
+			UIStroke_2.Parent = Icon
+
+			InputButton.Name = "InputButton"
+			InputButton.Parent = Icon
+			InputButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			InputButton.BackgroundTransparency = 1.000
+			InputButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			InputButton.BorderSizePixel = 0
+			InputButton.Size = UDim2.new(1, 0, 1, 0)
+			InputButton.ZIndex = 1000
+			InputButton.Font = Enum.Font.SourceSans
+			InputButton.Text = ""
+			InputButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+			InputButton.TextSize = 14.000
+			InputButton.TextTransparency = 1.000
+
+			MainFrame.Name = "MainFrame"
+			MainFrame.Parent = ColorPicker
+			MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+			MainFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			MainFrame.BackgroundTransparency = 1.000
+			MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+			MainFrame.Size = UDim2.new(0.949999988, 0, 0.5, 0)
+			MainFrame.SizeConstraint = Enum.SizeConstraint.RelativeXX
+			MainFrame.Visible = false
+
+			RGB.Name = "RGB"
+			RGB.Parent = MainFrame
+			RGB.AnchorPoint = Vector2.new(0.5, 0)
+			RGB.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			RGB.BorderColor3 = Color3.fromRGB(40, 40, 40)
+			RGB.BorderSizePixel = 2
+			RGB.ClipsDescendants = true
+			RGB.Position = UDim2.new(0.421602249, 0, 0.0900298506, 0)
+			RGB.Size = UDim2.new(0.75, 0, 0.75, 0)
+			RGB.SizeConstraint = Enum.SizeConstraint.RelativeYY
+			RGB.ZIndex = 4
+			RGB.Image = "rbxassetid://1433361550"
+			RGB.SliceCenter = Rect.new(10, 10, 90, 90)
+
+			Marker.Name = "Marker"
+			Marker.Parent = RGB
+			Marker.AnchorPoint = Vector2.new(0.5, 0.5)
+			Marker.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Marker.BackgroundTransparency = 1.000
+			Marker.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			Marker.BorderSizePixel = 0
+			Marker.Position = UDim2.new(0.5, 0, 0.5, 0)
+			Marker.Size = UDim2.new(0, 4, 0, 4)
+			Marker.ZIndex = 5
+
+			ImageLabel.Parent = Marker
+			ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+			ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			ImageLabel.BackgroundTransparency = 1.000
+			ImageLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			ImageLabel.BorderSizePixel = 0
+			ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+			ImageLabel.Size = UDim2.new(2, 0, 2, 0)
+			ImageLabel.ZIndex = 5
+			ImageLabel.Image = "rbxassetid://12845252201"
+
+			Value.Name = "Value"
+			Value.Parent = MainFrame
+			Value.AnchorPoint = Vector2.new(0.5, 0)
+			Value.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+			Value.BorderColor3 = Color3.fromRGB(40, 40, 40)
+			Value.BorderSizePixel = 2
+			Value.Position = UDim2.new(0.732019007, 0, 0.0900298506, 0)
+			Value.Size = UDim2.new(0.0567957126, 0, 0.736706376, 0)
+			Value.ZIndex = 4
+			Value.Image = "rbxassetid://359311684"
+			Value.SliceCenter = Rect.new(10, 10, 90, 90)
+
+			Marker_2.Name = "Marker"
+			Marker_2.Parent = Value
+			Marker_2.AnchorPoint = Vector2.new(0.5, 0.5)
+			Marker_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Marker_2.BackgroundTransparency = 1.000
+			Marker_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			Marker_2.BorderSizePixel = 0
+			Marker_2.Position = UDim2.new(0.5, 0, 0, 0)
+			Marker_2.Size = UDim2.new(1, 4, 0, 2)
+			Marker_2.ZIndex = 5
+
+			TextLabel.Parent = Marker_2
+			TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			TextLabel.BackgroundTransparency = 1.000
+			TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			TextLabel.BorderSizePixel = 0
+			TextLabel.Position = UDim2.new(1, 0, 0, 0)
+			TextLabel.Size = UDim2.new(2, 0, 5, 0)
+			TextLabel.ZIndex = 5
+			TextLabel.Font = Enum.Font.RobotoMono
+			TextLabel.Text = "<"
+			TextLabel.TextColor3 = Lino.TextColor
+			TextLabel.TextScaled = true
+			TextLabel.TextSize = 14.000
+			TextLabel.TextWrapped = true
+			TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+			TextLabel:SetAttribute("Theme","TextColor3 TextColor")
+			UIAspectRatioConstraint_3.Parent = MainFrame
+			UIAspectRatioConstraint_3.AspectRatio = 2.000
+			UIAspectRatioConstraint_3.AspectType = Enum.AspectType.ScaleWithParentSize
+			UIAspectRatioConstraint_3.DominantAxis = Enum.DominantAxis.Height
+			
+			local function UpdateText()
+				local size1 = TextService:GetTextSize(Title.Text,Title.TextSize,Title.Font,Vector2.new(math.huge,math.huge))
+				TweenService:Create(Title,TweenInfo.new(0.4),{Size = UDim2.new(0, size1.X + 15, 0.550000012, 0)}):Play()
+			end
+
+			local function atran(number)
+				TweenService:Create(RGB,TweenInfo.new(0.4),{BackgroundTransparency=number,ImageTransparency=number}):Play()
+				TweenService:Create(ImageLabel,TweenInfo.new(0.4),{ImageTransparency=number}):Play()
+				TweenService:Create(TextLabel,TweenInfo.new(0.4),{TextTransparency=number}):Play()
+				TweenService:Create(Value,TweenInfo.new(0.4),{ImageTransparency=number}):Play()
+				
+				RGB:SetAttribute('MainTran',number)
+				ImageLabel:SetAttribute('MainTran',number)
+				TextLabel:SetAttribute('MainTran',number)
+				Value:SetAttribute('MainTran',number)
+
+			end
+			
+			local function toggle(ca)
+				coroutine.wrap(function()
+					if ca then
+						MainFrame.Visible = true
+						TweenService:Create(UIAspectRatioConstraint,TweenInfo.new(0.5,Enum.EasingStyle.Quint),{AspectRatio = 1.7}):Play()
+						task.wait(0.1)
+						atran(0)
+					else
+						TweenService:Create(UIAspectRatioConstraint,TweenInfo.new(0.5,Enum.EasingStyle.Quint,Enum.EasingDirection.In),{AspectRatio = 10}):Play()
+						atran(1)
+
+						task.wait(0.55)
+
+						if UIAspectRatioConstraint.AspectRatio == 10 then
+							MainFrame.Visible = false
+						end
+					end
+				end)()
+			end
+			
+			toggle(false)
+			
+			local sdwasdw=false
+			local db_g=false
+			local is_touch_12=false
+			InputButton.MouseButton1Click:Connect(function()
+				Create_Ripple(Top)
+				sdwasdw=not sdwasdw
+				
+				toggle(sdwasdw)
+			end)
+			
+			RGB.InputBegan:Connect(function(a)
+				if a.UserInputType==Enum.UserInputType.MouseButton1 or a.UserInputType==Enum.UserInputType.Touch then
+					db_g=true
+				end
+			end)
+			
+			local function RGBToHSV(rgb)
+				local r, g, b = rgb.r, rgb.g, rgb.b
+				local max = math.max(r, g, b)
+				local min = math.min(r, g, b)
+				local hue, saturation, value
+
+				if max == min then
+					hue = 0
+				elseif max == r then
+					hue = ((g - b) / (max - min)) % 6
+				elseif max == g then
+					hue = ((b - r) / (max - min)) + 2
+				elseif max == b then
+					hue = ((r - g) / (max - min)) + 4
+				end
+
+				hue = math.floor(hue * 60)
+				if hue < 0 then
+					hue = hue + 360
+				end
+
+				if max == 0 then
+					saturation = 0
+				else
+					saturation = 1 - (min / max)
+				end
+
+				value = max
+
+				return Color3.new(hue / 360, saturation, value)
+			end
+			
+			RGB.InputEnded:Connect(function(a)
+				if a.UserInputType==Enum.UserInputType.MouseButton1 or a.UserInputType==Enum.UserInputType.Touch then
+					db_g=false
+					
+				end
+			end)
+			
+			Value.InputBegan:Connect(function(a)
+				if a.UserInputType==Enum.UserInputType.MouseButton1 or a.UserInputType==Enum.UserInputType.Touch then
+					is_touch_12=true
+				end
+			end)
+
+			Value.InputEnded:Connect(function(a)
+				if a.UserInputType==Enum.UserInputType.MouseButton1 or a.UserInputType==Enum.UserInputType.Touch then
+					is_touch_12=false
+
+				end
+			end)
+			
+			local val=RGBToHSV(Default)
+			local color_data = {val.R,val.G,val.B}
+			
+			local function setColor(hue,sat,val)
+				color_data = {hue or color_data[1],sat or color_data[2],val or color_data[3]}
+				Default = Color3.fromHSV(color_data[1],color_data[2],color_data[3])
+				Icon.BackgroundColor3=Default
+				
+				callback(Default)
+			end
+			
+			local function loads()
+				Icon.BackgroundColor3=Default
+				Marker_2.Position=UDim2.new(0.5,0,color_data[3],0)
+				Marker.Position = UDim2.new(color_data[1],0,color_data[2]-1,0)
+			end
+			
+			local function inBounds(frame)
+				local x,y = Mouse.X - frame.AbsolutePosition.X,Mouse.Y - frame.AbsolutePosition.Y
+				local maxX,maxY = frame.AbsoluteSize.X,frame.AbsoluteSize.Y
+				return math.clamp(x,0,maxX)/maxX,math.clamp(y,0,maxY)/maxY
+			end
+			
+			local function UpdateRGB()
+				if db_g then
+					local x,y = inBounds(RGB)
+					if x and y then
+						Marker.Position = UDim2.new(x,0,y,0)
+						setColor(1 - x,1 - y)
+					end
+				end
+				
+				if is_touch_12 then
+					
+					local x,y = inBounds(Value)
+					if x and y then
+						Marker_2.Position = UDim2.new(0.5,0,y,0)
+						setColor(nil,nil,1 - y)
+					end
+				end
+			end
+			
+			UserInputServie.InputChanged:Connect(function(a)
+				if db_g or is_touch_12 then
+					UpdateRGB()
+				end
+			end)
+			
+			loads()
+		end
+		
 		return TabFunctions
 	end
 
@@ -1736,7 +2152,48 @@ function Lino:NewWindow(WindowName)
 			UI_Toggle(true,1)
 		end
 	end)()
+	
+	local function get_arge(text:string)
+		local space=text:find(" ")
+		
+		local a2=text:sub(space+1)
+		local a1=text:sub(0,space-1)
+		return {a1,a2}
+	end
+	
+	function WindowFunctions:UpdateTheme()
+		for i,v :GuiObject in ipairs(ScreenGui:GetDescendants()) do
+			--ScrollingFrame:SetAttribute("Theme2","BackgroundColor3 DefaultColor")
+			if v:GetAttribute('Theme') then
+				local arges =get_arge(v:GetAttribute('Theme'))
+				
+				local g,n =	pcall(function()
+					if v[arges[1]] then
+						if Lino[arges[2]] then
+							v[arges[1]]=Lino[arges[2]]
+						else
+							print(arges[2])
+						end
+					end
+				end)
+				
+				
+			end
+			
+			if v:GetAttribute('Theme2') then
+				local arges =get_arge(v:GetAttribute('Theme2'))
 
+				pcall(function()
+					if v[arges[1]] then
+						if Lino[arges[2]] then
+							v[arges[1]]=Lino[arges[2]]
+						end
+					end
+				end)
+			end
+		end
+	end
+	
 	return WindowFunctions
 end
 
@@ -1902,7 +2359,7 @@ function Lino:SettupKeySystem(TitleName,ButtonText,LinkToGetKey,callback)
 	LinkToGetKey = LinkToGetKey or "1234"
 	TitleName = TitleName or "Key System"
 	IsKeying = true
-	
+
 	local ScreenGui = Instance.new("ScreenGui")
 	local Frame = Instance.new("Frame")
 	local DropShadow = Instance.new("ImageLabel")
@@ -1915,12 +2372,12 @@ function Lino:SettupKeySystem(TitleName,ButtonText,LinkToGetKey,callback)
 	local UICorner_2 = Instance.new("UICorner")
 	local UIStroke_2 = Instance.new("UIStroke")
 	local TextBox = Instance.new("TextBox")
-	
+
 	local function settupvaluee(val,ta)
 		if val then
 			Frame.Position = UDim2.new(0.5,0,.9,0)
 			TweenService:Create(Frame,TweenInfo.new(1.5,Enum.EasingStyle.Quint),{Position = UDim2.fromScale(.5,.5)}):Play()
-			
+
 			for i,v:ImageLabel in ipairs(ScreenGui:GetDescendants()) do
 				if  v:isA('TextLabel') or v:isA('TextBox') then
 					local oold = v.TextTransparency
@@ -1948,14 +2405,14 @@ function Lino:SettupKeySystem(TitleName,ButtonText,LinkToGetKey,callback)
 			end
 		else
 			TweenService:Create(Frame,TweenInfo.new(1.5,Enum.EasingStyle.Quint),{Position = UDim2.fromScale(.5,1.1)}):Play()
-			
+
 			for i,v:ImageLabel in ipairs(ScreenGui:GetDescendants()) do
 				pcall(function()
 					TweenService:Create(v,TweenInfo.new(ta),{TextTransparency = 1}):Play()
 				end)
-					pcall(function()
-						TweenService:Create(v,TweenInfo.new(ta),{BackgroundTransparency = 1}):Play()
-					end)
+				pcall(function()
+					TweenService:Create(v,TweenInfo.new(ta),{BackgroundTransparency = 1}):Play()
+				end)
 
 				pcall(function()
 					TweenService:Create(v,TweenInfo.new(ta),{BackgroundTransparency = 1}):Play()
@@ -1967,12 +2424,12 @@ function Lino:SettupKeySystem(TitleName,ButtonText,LinkToGetKey,callback)
 			end
 		end
 	end
-	
+
 	ScreenGui.Parent = UIPB
 	ScreenGui.ResetOnSpawn = false
 	ScreenGui.IgnoreGuiInset = true
 	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
-	
+
 	Frame.Parent = ScreenGui
 	Frame.AnchorPoint = Vector2.new(0.5, 0.5)
 	Frame.BackgroundColor3 = Lino.BlackgroundColor
@@ -2081,39 +2538,39 @@ function Lino:SettupKeySystem(TitleName,ButtonText,LinkToGetKey,callback)
 	TextBox.TextSize = 14.000
 	TextBox.TextWrapped = true
 	TextBox.TextXAlignment = Enum.TextXAlignment.Left
-	
+
 	settupvaluee(true,0.5)
-	
+
 	GetButton.MouseButton1Click:Connect(function()
 		Create_Ripple(GetButton)
-		
+
 		pcall(function()
 			setclipboard(tostring(LinkToGetKey))
 		end)
-		
+
 		pcall(function()
 			toclipboard(tostring(LinkToGetKey))
 		end)
 	end)
-	
+
 	local ischecking = false
-	
+
 	SubmitButton.MouseButton1Click:Connect(function()
 		if ischecking then
 			return
 		end
-		
+
 		ischecking = true
-		
+
 		SubmitButton.Text = "Checking"
-		
+
 		local a = pcall(function()
 			if callback(TextBox.Text) then
 				SubmitButton.TextColor3 = Color3.fromHSV(0.269278, 1, 1)
 				TweenService:Create(SubmitButton,TweenInfo.new(0.4),{TextColor3 = Lino.TextColor}):Play()
 				settupvaluee(false,.65)
 				SubmitButton.Text = "Pass"
-				
+
 				task.wait(0.2)
 
 				IsKeying = false
@@ -2124,15 +2581,15 @@ function Lino:SettupKeySystem(TitleName,ButtonText,LinkToGetKey,callback)
 				SubmitButton.Text = "Submit"
 			end
 		end)
-		
-		
+
+
 		if not a then
 			SubmitButton.TextColor3 = Color3.fromHSV(0.997389, 1, 1)
 			TweenService:Create(SubmitButton,TweenInfo.new(0.4),{TextColor3 = Lino.TextColor}):Play()
 			IsKeying = true
 			SubmitButton.Text = "Submit"
 		end
-		
+
 		ischecking = false
 	end)
 end
