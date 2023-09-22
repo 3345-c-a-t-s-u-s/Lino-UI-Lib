@@ -14,6 +14,14 @@ local ThemeTab = Window:NewTab("Theme")
 
 Tab:NewLabel("Example Tab")
 
+Window:UIToggle('Toggle',false,function(val)
+	print(val)
+end)
+
+Window:UIButton("Button",function()
+	
+end)
+
 Tab:NewButton('Button',function()
 	print('Button')
 	Noify:Notify("Button",'UI',3)
