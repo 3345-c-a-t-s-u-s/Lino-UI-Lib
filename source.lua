@@ -2340,7 +2340,7 @@ function Lino:NewWindow(WindowName)
 			game:GetService('TweenService'):Create(UIToggle, TweenInfo.new(dragSpeed), {Position = position}):Play()
 		end
 
-		InputButton.InputBegan:Connect(function(input)
+		UIToggle.InputBegan:Connect(function(input)
 			if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then 
 				dragToggle = true
 				dragStart = input.Position
@@ -2463,7 +2463,7 @@ function Lino:NewWindow(WindowName)
 			game:GetService('TweenService'):Create(UIButton, TweenInfo.new(dragSpeed), {Position = position}):Play()
 		end
 
-		InputButton.InputBegan:Connect(function(input)
+		UIButton.InputBegan:Connect(function(input)
 			if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then 
 				dragToggle = true
 				dragStart = input.Position
